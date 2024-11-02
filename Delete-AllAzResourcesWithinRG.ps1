@@ -1,3 +1,5 @@
+az account list
+
 $resourceOrderRemovalOrder = [ordered]@{
     "Microsoft.Compute/virtualMachines" = 0
     "Microsoft.Compute/disks" = 1
