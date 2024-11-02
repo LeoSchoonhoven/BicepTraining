@@ -1,19 +1,23 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
+stages:
+  - stage: Build
+    pool:
+      vmImage: 'windows-latest'
+    jobs:
+    - job: Build
+      displayName: 'Powershell Script Execute'
+      steps:
+        - task: PowerShell@2
+          displayName: 'Run Powershell Build'
+          inputs:
+            targetType: 'inline'
+            script: '.\azureoperationsscript.ps1 -OrganizationUrl $(OrganizationUrl) -PAT $(PAT) -OrganizationName $(OrganizationName)'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+        - task: PublishBuildArtifacts@1
+          inputs:
+            PathtoPublish: 'D:\a\1\s\allprojnameid.csv'
+            ArtifactName: 'drop'
+            publishLocation: 'Container'
