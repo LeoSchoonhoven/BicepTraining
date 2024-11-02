@@ -1,0 +1,28 @@
+name: Sync with Azure DevOps
+
+on:
+  push:
+    branches:
+      - main  # Change to the branch you want to sync
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout GitHub repo
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "Leo Schoonhoven"
+          git config --global user.email "leo.schoonhoven@gmail.com"
+
+      - name: Pull from Azure DevOps
+        run: |
+          git remote add azure https://DevOps-Shadowfly@dev.azure.com/DevOps-Shadowfly/BicepStudy/_git/BicepStudy
+          git fetch azure
+          git merge azure/main  # Merge changes if needed
+
+      - name: Push to GitHub
+        run: git push origin main
