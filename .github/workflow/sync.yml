@@ -15,7 +15,7 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config --global user.name "Leo Schoonhoven"
+          git config --global user.name "LeoSchoonhoven"
           git config --global user.email "leo.schoonhoven@gmail.com"
 
       - name: Pull from Azure DevOps
